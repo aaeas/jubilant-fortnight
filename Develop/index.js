@@ -1,6 +1,7 @@
 // TODO: Include packages needed for this application
 const inquirer = require("inquirer")
 const fs = require('fs')
+const path = require('path');
 // if we need to bring in generateMarkdown function
 const generateMarkdown = require('./utils/generateMarkdown');
 
@@ -17,7 +18,7 @@ const questions = [{
     type: "list",
     message: "Which license would you like to use?",
     name: "license",
-    choices: ['MIT', 'Apache 2.0']
+    choices: ['MIT', 'Apache 2.0', 'None']
 },
 {
     type: "input",
@@ -85,6 +86,8 @@ function init() {
         let result = generateMarkdown(data)
 
         console.log(result)
+
+        writeToFile('readme.md', result);
         // inquirer.prompt()
     })
         .catch(error => {
